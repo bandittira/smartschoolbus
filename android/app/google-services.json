@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1067134977536",
+    "project_id": "smartschoolbus-58bad",
+    "storage_bucket": "smartschoolbus-58bad.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1067134977536:android:b12b01f7a17267727c7ae5",
+        "android_client_info": {
+          "package_name": "com.example.smartschoolbus"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1067134977536-5h55mjq65c962emo7ps4ou58teoutu3g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCu9K68HeoLmELPqI18xUoJHpdDXpePtcQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1067134977536-5h55mjq65c962emo7ps4ou58teoutu3g.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
