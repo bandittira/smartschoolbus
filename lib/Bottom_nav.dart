@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:smartschoolbus/screens/mainPage/mainPage.dart';
 import 'package:smartschoolbus/screens/menu/menu.dart';
@@ -28,6 +29,8 @@ class _BottomNavState extends State<BottomNav> {
     });
     _pageController.jumpToPage(index);
   }
+
+  final Future<FirebaseApp> firebase = Firebase.initializeApp();
 
   @override
   Widget build(BuildContext context) {

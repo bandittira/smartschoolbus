@@ -25,23 +25,22 @@ class AuthService {
     }
   }
 
-  Future registerWithEmailAndPasword(String username, String password,
-      String email, String phonenumber) async {
+  Future registerWithEmailAndPasword(String email, String password,) async {
     try {
       UserCredential userCredential =
           await _auth.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
-
-      // User user = userCredential.user;
-      // return _userFromFirebaseUser(user);
+      User user = userCredential.user;
+      return _userFromFirebaseUser(user);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'email-already-in-use') {
         print('The email already exists');
       }
     } catch (e) {
       print(e.toString());
+      return null;
     }
   }
 
@@ -72,5 +71,4 @@ class AuthService {
       return null;
     }
   }
-  
 }

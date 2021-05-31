@@ -3,6 +3,8 @@ class Information {
   String chname;
   String email;
   String phonenum;
+  String uid;
 
-  Information({this.pname, this.chname,this.email, this.phonenum});
+  Information({this.pname, this.chname, this.email, this.phonenum, this.uid});
 }
+

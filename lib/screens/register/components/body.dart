@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:smartschoolbus/screens/personal_profile/components/information.dart';
@@ -23,16 +24,27 @@ class _BodyState extends State<Body> {
   final _formKey = GlobalKey<FormState>();
 
   final Future<FirebaseApp> firebase = Firebase.initializeApp();
-
   String username = '';
   String email = '';
   String password = '';
   String phonenumber = '';
   String error = '';
 
+  createRecord() async {
+    await FirebaseFirestore.instance
+        .collection("user")
+        .doc(myInformation.email)
+        .set({
+      "pname": myInformation.pname,
+      "email": myInformation.email,
+      "phonenum": myInformation.phonenum,
+      "chname": "-",
+      "school": "-",
+    });
+  }
+
+  final auth = FirebaseAuth.instance;
   Information myInformation = Information();
-  CollectionReference _information =
-      FirebaseFirestore.instance.collection("information");
 
   @override
   Widget build(BuildContext context) {
@@ -190,8 +202,8 @@ class _BodyState extends State<Body> {
                             height: 50,
                             child: TextFormField(
                               keyboardType: TextInputType.phone,
-                              // validator: (val) =>
-                              // val.isEmpty ? 'Enter an Phone number' : null,
+                              validator: (val) =>
+                                  val.isEmpty ? 'Enter an Phone number' : null,
                               onChanged: (val) {
                                 setState(() => phonenumber = val);
                               },
@@ -263,18 +275,16 @@ class _BodyState extends State<Body> {
                             onPressed: () async {
                               if (_formKey.currentState.validate()) {
                                 _formKey.currentState.save();
-                                await _information.add({
-                                  "pname": myInformation.pname,
-                                  "email": myInformation.email,
-                                  "phonenum": myInformation.phonenum
-                                });
+                                await createRecord();
                                 _formKey.currentState.reset();
                                 dynamic userCredential =
                                     await _auth.registerWithEmailAndPasword(
-                                        username, password, email, phonenumber);
+                                  email,
+                                  password,
+                                );
                                 if (userCredential == null) {
-                                  setState(() =>
-                                      error = 'please supply a valid email');
+                                  setState(
+                                      () => error = 'Create account success');
                                   print(email);
                                 }
                               }
