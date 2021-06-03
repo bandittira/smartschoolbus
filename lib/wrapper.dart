@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:smartschoolbus/Bottom_nav.dart';
 import 'package:smartschoolbus/home.dart';
 import 'package:smartschoolbus/screens/mainPage/mainPage.dart';
 import 'package:smartschoolbus/screens/sign_in/components/authenticate.dart';
@@ -14,7 +15,7 @@ class Wrapper extends StatelessWidget {
     if (user == null) {
       return Authenticate();
     } else {
-      return MainPage();
+      return BottomNav();
     }
   }
 }

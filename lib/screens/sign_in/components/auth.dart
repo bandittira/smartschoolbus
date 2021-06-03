@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/services.dart';
 import 'package:smartschoolbus/screens/sign_in/components/user.dart';
 
 class AuthService {
@@ -13,6 +14,16 @@ class AuthService {
     return _auth.authStateChanges().map(_userFromFirebaseUser);
   }
 
+  Future checkUser() async {
+    FirebaseAuth.instance.authStateChanges().listen((User user) {
+      if (user == null) {
+        print('User is currently signed out!');
+      } else {
+        print('User is signed in!');
+      }
+    });
+  }
+
 // sign in anon
   Future signInAnon() async {
     try {
@@ -25,7 +36,10 @@ class AuthService {
     }
   }
 
-  Future registerWithEmailAndPasword(String email, String password,) async {
+  Future registerWithEmailAndPasword(
+    String email,
+    String password,
+  ) async {
     try {
       UserCredential userCredential =
           await _auth.createUserWithEmailAndPassword(
@@ -33,13 +47,20 @@ class AuthService {
         password: password,
       );
       User user = userCredential.user;
-      return _userFromFirebaseUser(user);
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'email-already-in-use') {
+      return user.uid;
+    } on FirebaseAuthException catch (signUpError) {
+      if (signUpError.code == 'email-already-in-use') {
         print('The email already exists');
+        return false;
       }
-    } catch (e) {
-      print(e.toString());
+    } catch (signUpError) {
+      if (signUpError is FirebaseAuthException) {
+        if (signUpError.code == "email-already-in-use") {
+          print('The email already exists');
+          return false;
+        }
+      }
+      print(signUpError.toString());
       return null;
     }
   }
@@ -52,7 +73,7 @@ class AuthService {
       );
       User user = userCredential.user;
       return _userFromFirebaseUser(user);
-    } on FirebaseAuthException catch (e) {
+    } on PlatformException catch (e) {
       if (e.code == 'user-not-found') {
         print("user not found");
       } else if (e.code == 'wrong-password') {

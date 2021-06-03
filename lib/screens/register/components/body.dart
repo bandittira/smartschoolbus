@@ -30,6 +30,9 @@ class _BodyState extends State<Body> {
   String phonenumber = '';
   String error = '';
 
+  final auth = FirebaseAuth.instance;
+  Information myInformation = Information();
+
   createRecord() async {
     await FirebaseFirestore.instance
         .collection("user")
@@ -40,11 +43,9 @@ class _BodyState extends State<Body> {
       "phonenum": myInformation.phonenum,
       "chname": "-",
       "school": "-",
+      "userType": "0"
     });
   }
-
-  final auth = FirebaseAuth.instance;
-  Information myInformation = Information();
 
   @override
   Widget build(BuildContext context) {
@@ -282,10 +283,14 @@ class _BodyState extends State<Body> {
                                   email,
                                   password,
                                 );
-                                if (userCredential == null) {
+                                if (userCredential == true) {
+                                  print(userCredential.toString());
                                   setState(
                                       () => error = 'Create account success');
                                   print(email);
+                                } else if (userCredential == false) {
+                                  setState(
+                                      () => error = 'Email is already in use');
                                 }
                               }
                             },

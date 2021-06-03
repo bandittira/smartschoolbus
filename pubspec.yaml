@@ -35,6 +35,8 @@ dependencies:
   provider: ^5.0.0
   form_field_validator: ^1.1.0
   flutter_facebook_auth: ^3.4.0
+  intl: ^0.17.0
+  mysql1: ^0.19.2
 
 dev_dependencies:
   flutter_test:

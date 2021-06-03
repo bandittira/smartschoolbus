@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class BackgroundMainPage extends StatelessWidget {
   final Widget child;
@@ -9,6 +10,8 @@ class BackgroundMainPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    DateTime now = DateTime.now();
+    String formattedDate = DateFormat(' E  d').format(now);
     Size size = MediaQuery.of(context).size;
     return Container(
       width: double.infinity,
@@ -26,7 +29,7 @@ class BackgroundMainPage extends StatelessWidget {
               children: [
                 SizedBox(width: 20),
                 Container(
-                  child: Text("Today's Mon 15",
+                  child: Text("Today's $formattedDate",
                       style: TextStyle(
                           fontSize: 22,
                           color: Colors.white,

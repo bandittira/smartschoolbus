@@ -28,6 +28,7 @@ class _BodyState extends State<Body> {
     });
     print(myInformation.pname);
     print(myInformation.chname);
+    print(myInformation.phonenum);
   }
 
   retreieveData() async {
@@ -48,6 +49,7 @@ class _BodyState extends State<Body> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      
         body: StreamBuilder(
             stream: FirebaseFirestore.instance
                 .collection("user")
@@ -92,9 +94,11 @@ class _BodyState extends State<Body> {
                         Container(
                           padding: EdgeInsets.only(left: 10),
                           alignment: Alignment.centerLeft,
-                          child: TextField(
+                          child: TextFormField(
+                            validator: RequiredValidator(
+                                errorText: "Please enter parent name"),
                             onChanged: (String pname) {
-                              myInformation.pname = pname;
+                              myInformation.pname = pname = pname;
                             },
                             decoration: InputDecoration(
                                 hintText: snapshot.data['pname'],
@@ -128,14 +132,11 @@ class _BodyState extends State<Body> {
                         Container(
                           padding: EdgeInsets.only(left: 10),
                           alignment: Alignment.centerLeft,
-                          child: TextField(
+                          child: TextFormField(
+                            validator: RequiredValidator(
+                                errorText: "Please enter children name"),
                             onChanged: (String chname) {
-                              if (myInformation.chname ==
-                                  snapshot.data['chname']) {
-                                myInformation.chname = chname;
-                              } else if (myInformation.chname == null) {
-                                myInformation.chname = snapshot.data['chname'];
-                              }
+                              myInformation.chname = chname;
                             },
                             decoration: InputDecoration(
                                 hintText: snapshot.data['chname'],
@@ -169,14 +170,11 @@ class _BodyState extends State<Body> {
                         Container(
                           padding: EdgeInsets.only(left: 10),
                           alignment: Alignment.centerLeft,
-                          child: TextField(
+                          child: TextFormField(
+                            validator: RequiredValidator(
+                                errorText: "Please enter phonenum"),
                             onChanged: (String phonenum) {
-                              if (myInformation.phonenum == "") {
-                                myInformation.phonenum =
-                                    snapshot.data['phonenum'];
-                              } else {
-                                myInformation.phonenum = phonenum;
-                              }
+                              myInformation.phonenum = phonenum;
                             },
                             keyboardType: TextInputType.phone,
                             decoration: InputDecoration(
@@ -271,7 +269,8 @@ class _BodyState extends State<Body> {
                             onPressed: () async {
                               if (formKey.currentState.validate()) {
                                 formKey.currentState.save();
-                                await updateData();
+                                await retreieveData();
+                                updateData();
                                 formKey.currentState.reset();
                               }
                             },

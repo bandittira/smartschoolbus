@@ -20,17 +20,16 @@ class _BodyState extends State<Body> {
     });
   }
 
-  CollectionReference _user =
-      FirebaseFirestore.instance.collection('user');
+  CollectionReference _user = FirebaseFirestore.instance.collection('user');
 
   final formKey = GlobalKey<FormState>();
 
   final AuthService _auth = AuthService();
 
-  final passwordValidator = MultiValidator([  
-    RequiredValidator(errorText: 'password is required'),  
+  final passwordValidator = MultiValidator([
+    RequiredValidator(errorText: 'password is required'),
     MinLengthValidator(8, errorText: 'password must be at least 8 digits long'),
- ]);  
+  ]);
 
   // text field state
   String email = '';
@@ -66,7 +65,7 @@ class _BodyState extends State<Body> {
                     width: 350,
                     child: TextFormField(
                       keyboardType: TextInputType.emailAddress,
-                      validator: MultiValidator([ 
+                      validator: MultiValidator([
                         EmailValidator(errorText: "Enter email only"),
                         RequiredValidator(errorText: "Please enter an email"),
                       ]),
@@ -97,36 +96,38 @@ class _BodyState extends State<Body> {
                   ),
                   child: Container(
                     width: 350,
-                      child: TextFormField(
-                        validator: ((val) => MatchValidator(errorText: 'passwords do not match').validateMatch(val, password)),
-                        onChanged: (val) {
-                          setState(() => password = val);
-                        },
-                        decoration: InputDecoration(
-                          suffix: GestureDetector(
-                            onTap: _toggle,
-                            child: Container(
-                              padding: EdgeInsets.only(right: 20),
-                              child: Text(_obscureText ? "Show" : "Hide"),
-                            ),
+                    child: TextFormField(
+                      validator: ((val) =>
+                          MatchValidator(errorText: 'passwords do not match')
+                              .validateMatch(val, password)),
+                      onChanged: (val) {
+                        setState(() => password = val);
+                      },
+                      decoration: InputDecoration(
+                        suffix: GestureDetector(
+                          onTap: _toggle,
+                          child: Container(
+                            padding: EdgeInsets.only(right: 20),
+                            child: Text(_obscureText ? "Show" : "Hide"),
                           ),
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(30)),
-                          prefixIcon: Padding(
-                            padding: EdgeInsets.only(left: 10),
-                            child: Image.asset(
-                                "assets/images/Icon/Register_icons/lock2.png"),
-                          ),
-                          contentPadding: EdgeInsets.symmetric(vertical: 18),
-                          floatingLabelBehavior: FloatingLabelBehavior.always,
-                          hintText: ("Password?"),
                         ),
-                        onSaved: (val) => password = val,
-                        obscureText: _obscureText,
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(30)),
+                        prefixIcon: Padding(
+                          padding: EdgeInsets.only(left: 10),
+                          child: Image.asset(
+                              "assets/images/Icon/Register_icons/lock2.png"),
+                        ),
+                        contentPadding: EdgeInsets.symmetric(vertical: 18),
+                        floatingLabelBehavior: FloatingLabelBehavior.always,
+                        hintText: ("Password?"),
                       ),
+                      onSaved: (val) => password = val,
+                      obscureText: _obscureText,
                     ),
                   ),
-                
+                ),
+
                 SizedBox(
                   height: 35,
                 ),
