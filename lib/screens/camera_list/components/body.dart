@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-
+import 'package:smartschoolbus/screens/camera_list/components/background.dart';
 
 class Body extends StatefulWidget {
-
   @override
   _BodyState createState() => _BodyState();
 }
@@ -10,8 +9,8 @@ class Body extends StatefulWidget {
 class _BodyState extends State<Body> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      
+    return bgCameraList(
+      child: Text("Hello"),
     );
   }
 }

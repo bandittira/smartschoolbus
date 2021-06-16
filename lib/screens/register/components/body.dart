@@ -22,6 +22,7 @@ class _BodyState extends State<Body> {
 
   final AuthService _auth = AuthService();
   final _formKey = GlobalKey<FormState>();
+  final loginkey = GlobalKey<ScaffoldState>();
 
   final Future<FirebaseApp> firebase = Firebase.initializeApp();
   String username = '';
@@ -43,12 +44,18 @@ class _BodyState extends State<Body> {
       "phonenum": myInformation.phonenum,
       "chname": "-",
       "school": "-",
-      "userType": "0"
+      "userType": "0",
+      "arr_des": "0",
+      "boarding": "0",
+      "amt": "0",
+      "carId": "-"
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    final snackBar = SnackBar(content: Text("Create account success"));
+    final snackBar2 = SnackBar(content: Text("Error please try again"));
     return FutureBuilder(
         future: firebase,
         builder: (context, snapshot) {
@@ -64,6 +71,7 @@ class _BodyState extends State<Body> {
           }
           if (snapshot.connectionState == ConnectionState.done) {
             return BackGround(
+              key: loginkey,
               child: Form(
                 key: _formKey,
                 child: Stack(
@@ -278,20 +286,17 @@ class _BodyState extends State<Body> {
                                 _formKey.currentState.save();
                                 await createRecord();
                                 _formKey.currentState.reset();
+
                                 dynamic userCredential =
                                     await _auth.registerWithEmailAndPasword(
                                   email,
                                   password,
                                 );
-                                if (userCredential == true) {
-                                  print(userCredential.toString());
-                                  setState(
-                                      () => error = 'Create account success');
-                                  print(email);
-                                } else if (userCredential == false) {
-                                  setState(
-                                      () => error = 'Email is already in use');
-                                }
+                                return ScaffoldMessenger.of(context)
+                                    .showSnackBar(snackBar);
+                              } else {
+                                return ScaffoldMessenger.of(context)
+                                    .showSnackBar(snackBar2);
                               }
                             },
                           ),

@@ -1,8 +1,9 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:smartschoolbus/notification_service.dart';
+import 'package:smartschoolbus/screens/camera_list/cameralist.dart';
 import 'package:smartschoolbus/screens/mainPage/mainPage.dart';
 import 'package:smartschoolbus/screens/menu/menu.dart';
-import 'package:smartschoolbus/screens/personal_profile/personal_profile.dart';
 
 class BottomNav extends StatefulWidget {
   BottomNav({Key key}) : super(key: key);
@@ -13,7 +14,7 @@ class BottomNav extends StatefulWidget {
 
 class _BottomNavState extends State<BottomNav> {
   PageController _pageController = PageController();
-  List<Widget> _screens = [MainPage(), PersonalProfile(), MenuPage()];
+  List<Widget> _screens = [MainPage(), NotificationApp(), MenuPage()];
 
   int _selectedIndex = 0;
 

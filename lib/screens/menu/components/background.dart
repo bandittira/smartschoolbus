@@ -10,12 +10,14 @@ class MenuPageBackground extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return Container(
-      width: double.infinity,
-      height: size.height,
-      decoration: BoxDecoration(color: const Color(0xFFEDEEFF)),
-      child: Stack(
-        children: <Widget>[child],
+    return SingleChildScrollView(
+      child: Container(
+        width: double.infinity,
+        height: size.height,
+        decoration: BoxDecoration(color: const Color(0xFFEDEEFF)),
+        child: Stack(
+          children: <Widget>[child],
+        ),
       ),
     );
   }

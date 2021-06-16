@@ -16,7 +16,7 @@ class bgCameraList extends StatelessWidget {
       child: Row(
         children: [
           Container(
-            child: Text("Today's $formattedDate"),
+            child: Text(""),
           )
         ],
       ),

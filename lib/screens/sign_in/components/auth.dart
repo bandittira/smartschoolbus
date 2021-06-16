@@ -1,8 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/services.dart';
+import 'package:flutter/material.dart';
 import 'package:smartschoolbus/screens/sign_in/components/user.dart';
 
 class AuthService {
+  
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   Firebaseusertest _userFromFirebaseUser(User user) {
@@ -37,35 +38,32 @@ class AuthService {
   }
 
   Future registerWithEmailAndPasword(
-    String email,
-    String password,
+    String _email,
+    String _password,
   ) async {
+    var loginkey = GlobalKey<ScaffoldState>();
     try {
       UserCredential userCredential =
           await _auth.createUserWithEmailAndPassword(
-        email: email,
-        password: password,
+        email: _email,
+        password: _password,
       );
       User user = userCredential.user;
       return user.uid;
     } on FirebaseAuthException catch (signUpError) {
       if (signUpError.code == 'email-already-in-use') {
         print('The email already exists');
-        return false;
+        return loginkey.currentState
+            .showSnackBar(SnackBar(content: Text("Email already exist")));
       }
     } catch (signUpError) {
-      if (signUpError is FirebaseAuthException) {
-        if (signUpError.code == "email-already-in-use") {
-          print('The email already exists');
-          return false;
-        }
-      }
       print(signUpError.toString());
-      return null;
+      return SnackBar(content: Text("Register already"));
     }
   }
 
   Future signInWithEmailAndPasword(String email, String password) async {
+    var loginkey = GlobalKey<ScaffoldState>();
     try {
       UserCredential userCredential = await _auth.signInWithEmailAndPassword(
         email: email,
@@ -73,14 +71,19 @@ class AuthService {
       );
       User user = userCredential.user;
       return _userFromFirebaseUser(user);
-    } on PlatformException catch (e) {
+    } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         print("user not found");
+        return loginkey.currentState
+            .showSnackBar(SnackBar(content: Text("User not found")));
       } else if (e.code == 'wrong-password') {
         print('Wrong password provided for that user.');
+        return loginkey.currentState
+            .showSnackBar(SnackBar(content: Text("Wrong password")));
       }
     } catch (e) {
       print(e);
+      return null;
     }
   }
 

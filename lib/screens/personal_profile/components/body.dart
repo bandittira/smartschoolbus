@@ -14,9 +14,7 @@ class _BodyState extends State<Body> {
   final auth = FirebaseAuth.instance;
   final formKey = GlobalKey<FormState>();
   Information myInformation = Information();
-  CollectionReference _informationCollection =
-      FirebaseFirestore.instance.collection("Information");
-
+  
   updateData() async {
     await FirebaseFirestore.instance
         .collection("user")

@@ -23,6 +23,11 @@ class _BodyState extends State<Body> {
       Map<String, dynamic> document = doc.data();
       setState(() {
         carId = document['carId'];
+        if (document['carId'] == "-") {
+          return carId = "-";
+        } else {
+          return carId = document['carId'];
+        }
       });
     });
   }

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:provider/provider.dart';
 import 'package:smartschoolbus/screens/sign_in/components/auth.dart';
 import 'package:smartschoolbus/wrapper.dart';
 import 'package:smartschoolbus/screens/sign_in/components/user.dart';
-
 import 'dart:async';
 import 'dart:io';
 import 'dart:convert';
@@ -30,16 +30,13 @@ Future<String> sendRequest(String _request) async {
     _socket.listen((data) {
       _secureResponse = utf8.decode(data);
       _completer.complete(_secureResponse);
-    },
-    onError: ((error, StackTrace trace) {
+    }, onError: ((error, StackTrace trace) {
       _secureResponse = _errorData;
       _completer.completeError(_secureResponse);
-    }),
-    onDone: () {
+    }), onDone: () {
       _socket.destroy();
       exit(0);
-    },
-    cancelOnError: false);
+    }, cancelOnError: false);
     _socket.write('$_request');
   } else {
     _secureResponse = _errorData;
