@@ -5,6 +5,8 @@ import 'package:smartschoolbus/screens/camera_list/cameralist.dart';
 import 'package:smartschoolbus/screens/mainPage/mainPage.dart';
 import 'package:smartschoolbus/screens/menu/menu.dart';
 
+import 'main.dart';
+
 class BottomNav extends StatefulWidget {
   BottomNav({Key key}) : super(key: key);
 

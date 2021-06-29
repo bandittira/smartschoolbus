@@ -33,8 +33,8 @@ class _BodyState extends State<Body> {
           String arrdes = snapshot.data['arr_des'];
           test() {
             if (boarding == "1") {
-              return CardStatus("Boarding to school", Colors.yellow.shade300,
-                  Colors.yellow.shade100);
+              return CardStatus("Boarding to Destination",
+                  Colors.yellow.shade300, Colors.yellow.shade100);
             } else {
               return CardStatus("Waiting for student", Colors.pink.shade300,
                   Colors.pink.shade100);
