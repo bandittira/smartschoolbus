@@ -92,7 +92,7 @@ class _BodyState extends State<Body> {
                                   height: 170,
                                   child: PhotoView(
                                     imageProvider: AssetImage(
-                                        "assets/images/Main/test1.png"),
+                                        "assets/images/Main/test2.png"),
                                   )),
                               Container(
                                 alignment: Alignment.center,

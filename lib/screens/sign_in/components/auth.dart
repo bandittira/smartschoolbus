@@ -58,7 +58,7 @@ class AuthService {
       }
     } catch (signUpError) {
       print(signUpError.toString());
-      return SnackBar(content: Text("Register already"));
+      return SnackBar(content: Text("Error please try again"));
     }
   }
 

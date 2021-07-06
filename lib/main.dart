@@ -62,8 +62,20 @@ class _NotificationAppState extends State<NotificationApp> {
     var iosDetails = new IOSNotificationDetails();
     var generalNotificationDetails =
         new NotificationDetails(android: andoidDetails, iOS: iosDetails);
-    localNotificationsPlugin.show(0, "Notif Title",
-        "The Body of the Notification", generalNotificationDetails);
+    localNotificationsPlugin.show(0, "Smart school bus",
+        "Kindergarten got trapped in the car !", generalNotificationDetails);
+  }
+
+    Future selectNotification(String payload) async {
+    if (payload != null) {
+      debugPrint('notification payload: $payload');
+    }
+    showDialog(
+        context: context,
+        builder: (_) => new AlertDialog(
+              title: new Text('Notification'),
+              content: new Text('$payload'),
+            ));
   }
 
   Future onDidReceiveLocalNotification(
@@ -91,18 +103,6 @@ class _NotificationAppState extends State<NotificationApp> {
         ],
       ),
     );
-  }
-
-  Future selectNotification(String payload) async {
-    if (payload != null) {
-      debugPrint('notification payload: $payload');
-    }
-    showDialog(
-        context: context,
-        builder: (_) => new AlertDialog(
-              title: new Text('Notification'),
-              content: new Text('$payload'),
-            ));
   }
 
   @override
